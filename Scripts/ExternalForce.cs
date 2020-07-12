@@ -10,13 +10,18 @@ public class ExternalForce : AbstractSimForce
 
     private bool hasSetLength = false;
 
+    /**
+     * Updates the force every in-engine time interval
+     */
     public void FixedUpdate()
     {
         Vector3 force = getForce();
-
         rb2.AddForce(force * Time.fixedDeltaTime);
     }
 
+    /**
+     * Computes the force given by this game object based on its current conditions
+     */
     public override Vector2 getForce()
     {
         Vector2 position1 = o1.transform.position;
@@ -29,6 +34,9 @@ public class ExternalForce : AbstractSimForce
         return forceVector * forceMagnitude;
     }
 
+    /**
+     * Computes the orientation/scale/position of the sprite image.
+     */
     private void setOrientationAndScale(Vector2 position1, Vector2 position2)
     {
         //set the position

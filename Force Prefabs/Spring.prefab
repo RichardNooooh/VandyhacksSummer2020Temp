@@ -91,6 +91,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1658375795191176655}
   - component: {fileID: 1658375795191176652}
+  - component: {fileID: 3816887442643969671}
   m_Layer: 0
   m_Name: Spring
   m_TagString: Untagged
@@ -129,3 +130,15 @@ MonoBehaviour:
   o2: {fileID: 0}
   springConstant: 10
   equilibriumLength: 5.57
+--- !u!114 &3816887442643969671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1658375795191176653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 981b01ab75eb1cc43ac00fb5b24757dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

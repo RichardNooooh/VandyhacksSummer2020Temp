@@ -91,6 +91,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2494989319905377541}
   - component: {fileID: 2494989319905377540}
+  - component: {fileID: 1982183051545152649}
   m_Layer: 0
   m_Name: External Force
   m_TagString: Untagged
@@ -128,3 +129,15 @@ MonoBehaviour:
   o1: {fileID: 0}
   o2: {fileID: 0}
   forceMagnitude: 10
+--- !u!114 &1982183051545152649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2494989319905377543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 981b01ab75eb1cc43ac00fb5b24757dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -9,6 +9,9 @@ public class SpringForce : AbstractSimForce
     public float springConstant = 10.0f; //N/m
     public float equilibriumLength = 5.0f;
 
+    /**
+     * Updates the force every in-engine time interval
+     */
     public void FixedUpdate()
     {
         Vector3 force = getForce();
@@ -18,7 +21,9 @@ public class SpringForce : AbstractSimForce
             rb2.AddForce(-force * Time.fixedDeltaTime);
     }
 
-
+    /**
+     * Computes the force given by this game object based on its current conditions
+     */
     public override Vector2 getForce()
     {
         Vector2 position1 = o1.transform.position;
@@ -30,13 +35,16 @@ public class SpringForce : AbstractSimForce
         setOrientationAndScale(position1, position2);
 
         if (displacementLength < equilibriumLength)
-            return - displacementVector.normalized * springConstant * displacementLength;
+            return -displacementVector.normalized * springConstant * displacementLength;
         else if (displacementLength > equilibriumLength)
             return displacementVector.normalized * springConstant * displacementLength;
         else
             return Vector2.zero;
     }
 
+    /**
+     * Computes the orientation/scale/position of the sprite image.
+     */
     private void setOrientationAndScale(Vector2 position1, Vector2 position2)
     {
         //set the position

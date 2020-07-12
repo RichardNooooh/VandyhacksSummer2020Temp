@@ -4,6 +4,31 @@ using UnityEngine;
 
 public class MoveObjects : MonoBehaviour
 {
+    //2D version (from https://www.youtube.com/watch?v=eUWmiV4jRgU)
+    private float startPosX;
+    private float startPosY;
+    private bool isBeingHeld = false;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //3d version
     private Vector3 mOffset;
     private float mZCoord;
 
