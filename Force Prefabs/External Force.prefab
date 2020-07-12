@@ -91,8 +91,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2494989319905377541}
   - component: {fileID: 2494989319905377540}
-  - component: {fileID: 1982183051545152649}
   - component: {fileID: -7034864900472785029}
+  - component: {fileID: 2920410441278043158}
   m_Layer: 0
   m_Name: External Force
   m_TagString: External Forces
@@ -130,18 +130,6 @@ MonoBehaviour:
   o1: {fileID: 0}
   o2: {fileID: 0}
   forceMagnitude: 10
---- !u!114 &1982183051545152649
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2494989319905377543}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 981b01ab75eb1cc43ac00fb5b24757dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!70 &-7034864900472785029
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -158,3 +146,15 @@ CapsuleCollider2D:
   m_Offset: {x: -0.05, y: 0}
   m_Size: {x: 3.11, y: 0.54}
   m_Direction: 1
+--- !u!114 &2920410441278043158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2494989319905377543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 981b01ab75eb1cc43ac00fb5b24757dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
