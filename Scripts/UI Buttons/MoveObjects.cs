@@ -26,6 +26,14 @@ public class MoveObjects : MonoBehaviour
         FROM = 2
     }
 
+    public enum ObjectConnectionType 
+    {
+        ERROR = 0,
+        EXTERNAL_FORCE = 1,
+        MASS_CUBE = 2, 
+        SPRING = 3
+    }
+
 
     void Start()
     {
@@ -55,6 +63,7 @@ public class MoveObjects : MonoBehaviour
         //Left mouse click selection
         if (Input.GetMouseButtonDown(0))
         {
+            UnityEngine.Debug.Log("isSelecting: " + isSelecting);
             if (!isSelecting)
             {
 
@@ -71,9 +80,15 @@ public class MoveObjects : MonoBehaviour
             else
             {
                 if (currentConnectionSelection == ToFromSelection.TO)
+                {
                     selectedGameObject.GetComponent<AbstractSimForce>().o1 = this.gameObject;
+                    UnityEngine.Debug.Log("Connect this object: " + selectedGameObject + " o1 reference to " + this.gameObject);
+                }
                 else if (currentConnectionSelection == ToFromSelection.FROM)
+                {
                     selectedGameObject.GetComponent<AbstractSimForce>().o2 = this.gameObject;
+                    UnityEngine.Debug.Log("Connect this object: " + selectedGameObject + " o2 reference to " + this.gameObject);
+                }
 
             }
             //reset menu and variables TODO
@@ -81,19 +96,6 @@ public class MoveObjects : MonoBehaviour
             selectedGameObject = null;
             currentConnectionSelection = ToFromSelection.NOT_SELECTED;
 
-            foreach (Transform selectionMenuItem in selectionMenuObject.transform)
-            {
-                GameObject childGameObject = selectionMenuItem.gameObject;
-                childGameObject.SetActive(true);
-                if (childGameObject.CompareTag("UI-SelectionMenuInputField"))
-                {
-                    Transform placeHolderTransform = selectionMenuItem.GetChild(0);
-                    if (!placeHolderTransform.gameObject.CompareTag("UI-SelectionMenuInputPlaceholder"))
-                        placeHolderTransform = selectionMenuItem.GetChild(1);
-                    
-                    placeHolderTransform.GetComponent<Text>().text = "reset";
-                }
-            }
             selectionMenuObject.SetActive(false);
         }
     }
@@ -114,99 +116,38 @@ public class MoveObjects : MonoBehaviour
 
             //this.gameObject
             UnityEngine.Debug.Log("Right mouse click is pressed and this object: \n" + this.gameObject + " is selected.");
-            
-            selectionMenuObject.SetActive(true);
-            selectionMenuObject.transform.position = mousePos;
-
-            UnityEngine.Debug.Log("Is selection menu active?: " + selectionMenuObject.activeSelf);
 
             var thisGameObject = this.gameObject;
-            if (thisGameObject.CompareTag("External Forces"))
-                ConfigureExternalForcesMenu();
-            else if (thisGameObject.CompareTag("Mass Cube"))
-                ConfigureMassCubeMenu();
-            else if (thisGameObject.CompareTag("Spring"))
-                ConfigureSpringMenu();
+            selectedGameObject = this.gameObject;
+
+            if (!thisGameObject.CompareTag("Mass Cube"))
+            {
+                selectionMenuObject.SetActive(true);
+                selectionMenuObject.transform.position = mousePos;
+            }
+            //if (thisGameObject.CompareTag("External Forces"))
+            //    ConfigureExternalForcesMenu();
+            //else if (thisGameObject.CompareTag("Mass Cube"))
+            //    ConfigureMassCubeMenu();
+            //else if (thisGameObject.CompareTag("Spring"))
+            //    ConfigureSpringMenu();
 
         }
     }
 
-    //only 1 value, and the 2 connectors
-    private void ConfigureExternalForcesMenu()
-    {
-        Transform selectionMenuTransform = selectionMenuObject.transform;
-
-        //Set InputField1 inactive
-        selectionMenuTransform.GetChild(2).gameObject.SetActive(false); //this is InputField1
-
-        //Set placeholder text of input
-        Transform inputFieldObject0 = selectionMenuTransform.GetChild(1);
-        GameObject placeholderObject0 = inputFieldObject0.GetChild(0).gameObject;
-
-        //At creation, the inputfield generates a child GameObject at index 0 called InputField0 Input Caret
-        if (!placeholderObject0.CompareTag("UI-SelectionMenuInputPlaceholder"))
-            placeholderObject0 = inputFieldObject0.GetChild(1).gameObject;
-        placeholderObject0.GetComponent<Text>().text = "Force (N)";
-
-    }
-
-    //only 1 value
-    private void ConfigureMassCubeMenu()
-    {
-        Transform selectionMenuTransform = selectionMenuObject.transform;
-
-        //Set InputField1 and ConnectorButtons inactive, keep track of it for reactivation
-        selectionMenuTransform.GetChild(2).gameObject.SetActive(false); //InputField1
-        selectionMenuTransform.GetChild(3).gameObject.SetActive(false); //ConnectorButton0
-        selectionMenuTransform.GetChild(4).gameObject.SetActive(false); //ConnectorButton1
-
-        //Set placeholder text of input
-        Transform inputFieldObject0 = selectionMenuTransform.GetChild(1);
-        GameObject placeholderObject0 = inputFieldObject0.GetChild(0).gameObject;
-
-        //At creation, the inputfield generates a child GameObject at index 0 called InputField0 Input Caret
-        if (!placeholderObject0.CompareTag("UI-SelectionMenuInputPlaceholder"))
-            placeholderObject0 = inputFieldObject0.GetChild(1).gameObject;
-        placeholderObject0.GetComponent<Text>().text = "Mass (kg)";
-    }
-
-    //all 4 options
-    private void ConfigureSpringMenu()
-    {
-        Transform selectionMenuTransform = selectionMenuObject.transform;
-
-        //Set placeholder text of inputs
-        Transform inputFieldObject0 = selectionMenuTransform.GetChild(1);
-        GameObject placeholderObject0 = inputFieldObject0.GetChild(0).gameObject;
-        
-        //At creation, the inputfield generates a child GameObject at index 0 called InputField0 Input Caret
-        if (!placeholderObject0.CompareTag("UI-SelectionMenuInputPlaceholder"))
-            placeholderObject0 = inputFieldObject0.GetChild(1).gameObject;
-        placeholderObject0.GetComponent<Text>().text = "Length (m)";
-
-
-        Transform inputFieldObject1 = selectionMenuTransform.GetChild(2);
-        GameObject placeholderObject1 = inputFieldObject1.GetChild(0).gameObject;
-        
-        //At creation, the inputfield generates a child GameObject at index 0 called InputField1 Input Caret
-        if (!placeholderObject1.CompareTag("UI-SelectionMenuInputPlaceholder"))
-            placeholderObject1 = inputFieldObject1.GetChild(1).gameObject;
-        placeholderObject1.GetComponent<Text>().text = "Constant (N/m)";
-
-        UnityEngine.Debug.Log("Selected external force object, placeholder objects: " + placeholderObject0 + " and " + placeholderObject1);
-    }
-
     public void ToButtonSelection()
     {
+        UnityEngine.Debug.Log("To button is pressed");
         isSelecting = true;
-        selectedGameObject = this.gameObject;
+        //selectedGameObject = this.gameObject;
         currentConnectionSelection = ToFromSelection.TO;
     }
 
     public void FromButtonSelection() 
     {
+        UnityEngine.Debug.Log("From button is pressed");
         isSelecting = true;
-        selectedGameObject = this.gameObject;
+        //selectedGameObject = this.gameObject;
         currentConnectionSelection = ToFromSelection.FROM;
     }
 }

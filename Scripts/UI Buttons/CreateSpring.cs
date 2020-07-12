@@ -8,6 +8,7 @@ public class CreateSpring : MonoBehaviour
     public GameObject refToSpringObject;
     public GameObject refToInputFieldHooke;
     public GameObject refToInputFieldLength;
+    public GameObject refToSimRoot;
 
     public Vector3 creationPosition = new Vector3(4, -5, 0);
 
@@ -20,6 +21,7 @@ public class CreateSpring : MonoBehaviour
 
         newCreatedSpringObject.GetComponent<SpringForce>().springConstant = givenHooke;
         newCreatedSpringObject.GetComponent<SpringForce>().equilibriumLength = givenLength;
+        newCreatedSpringObject.transform.parent = refToSimRoot.transform;
 
 
         UnityEngine.Debug.Log("Created Spring with the Equilibrium Length of : " + givenLength + "\n and Hooke Constant of : " + givenHooke);

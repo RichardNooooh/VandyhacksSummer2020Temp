@@ -7,15 +7,17 @@ public class CreateExternalForce : MonoBehaviour
 {
     public GameObject refToExternalForceObject;
     public GameObject refToInputField;
+    public GameObject refToSimRoot;
 
     public Vector3 creationPosition = new Vector3(4, -5, 0);
 
     public void OnClick()
     {
-        GameObject newCreatedExternalObject = Instantiate(refToExternalForceObject, creationPosition, Quaternion.identity);
+        GameObject newCreatedExternalForce = Instantiate(refToExternalForceObject, creationPosition, Quaternion.identity);
         float givenForceMagnitude = float.Parse(refToInputField.GetComponent<Text>().text);
-        UnityEngine.Debug.Log("Created box of mass: " + givenForceMagnitude);
-        newCreatedExternalObject.GetComponent<ExternalForce>().forceMagnitude = givenForceMagnitude;
+        UnityEngine.Debug.Log("Created force of strength: " + givenForceMagnitude);
+        newCreatedExternalForce.GetComponent<ExternalForce>().forceMagnitude = givenForceMagnitude;
+        newCreatedExternalForce.transform.parent = refToSimRoot.transform;
 
     }
 }
