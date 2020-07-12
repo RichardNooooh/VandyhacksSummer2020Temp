@@ -1,18 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CreateSpring : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public GameObject refToSpringObject;
+    public GameObject refToInputFieldHooke;
+    public GameObject refToInputFieldLength;
 
-    // Update is called once per frame
-    void Update()
+    public Vector3 creationPosition = new Vector3(4, -5, 0);
+
+    public void OnClick()
     {
-        
+        GameObject newCreatedSpringObject = Instantiate(refToSpringObject, creationPosition, Quaternion.identity);
+        float givenHooke = float.Parse(refToInputFieldHooke.GetComponent<Text>().text);
+        float givenLength = float.Parse(refToInputFieldLength.GetComponent<Text>().text);
+
+
+        newCreatedSpringObject.GetComponent<SpringForce>().springConstant = givenHooke;
+        newCreatedSpringObject.GetComponent<SpringForce>().equilibriumLength = givenLength;
+
+
+        UnityEngine.Debug.Log("Created Spring with the Equilibrium Length of : " + givenLength + "\n and Hooke Constant of : " + givenHooke);
     }
 }

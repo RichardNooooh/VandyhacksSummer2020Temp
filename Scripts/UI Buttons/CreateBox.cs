@@ -10,7 +10,7 @@ public class CreateBox : MonoBehaviour
 
     public void OnClick()
     {
-        GameObject newCreatedBox = Instantiate(refToBoxObject, Vector2.zero, Quaternion.identity);
+        GameObject newCreatedBox = Instantiate(refToBoxObject, Vector3.zero, Quaternion.identity);
         float givenMass = float.Parse(refToInputField.GetComponent<Text>().text);
         UnityEngine.Debug.Log("Created box of mass: " + givenMass);
         newCreatedBox.GetComponent<Rigidbody2D>().mass = givenMass;
