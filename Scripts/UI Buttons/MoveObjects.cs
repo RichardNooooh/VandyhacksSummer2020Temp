@@ -17,8 +17,6 @@ public class MoveObjects : MonoBehaviour
     }
 
 
-
-
     void OnMouseDown()
     {
         mZCoord = Camera.main.WorldToScreenPoint(gameObject.transform.position).z;

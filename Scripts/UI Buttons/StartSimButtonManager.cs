@@ -1,18 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class StartSimButtonManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    void Awake() 
     {
-        
+        Time.timeScale = 0;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnClick() 
     {
-        
+        UnityEngine.Debug.Log("Called start sim()");
+        Time.timeScale = 1;
     }
 }
