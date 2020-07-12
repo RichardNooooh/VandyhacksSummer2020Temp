@@ -9,10 +9,63 @@ public class MoveObjects : MonoBehaviour
     private float startPosY;
     private bool isBeingHeld = false;
 
+    void Update()
+    {
+        if (isBeingHeld == true)
+        {
+            Vector3 mousePos = Input.mousePosition;
+            mousePos = Camera.main.ScreenToWorldPoint(mousePos);
 
+            this.gameObject.transform.localPosition = new Vector3(mousePos.x - startPosX, mousePos.y - startPosY, 0);
+        }
+    }
 
+    private void OnMouseDown()
+    {
+        //Left mouse click selection
+        if (Input.GetMouseButtonDown(0))
+        {
+            UnityEngine.Debug.Log("Left mouse click is pressed");
+            Vector3 mousePos;
+            mousePos = Input.mousePosition;
+            mousePos = Camera.main.ScreenToWorldPoint(mousePos);
 
+            startPosX = mousePos.x - this.transform.localPosition.x;
+            startPosY = mousePos.y - this.transform.localPosition.y;
 
+            isBeingHeld = true;
+        }
+    }
+
+    private void OnMouseOver() 
+    {
+        //Right mouse click selection
+        if (Input.GetMouseButtonDown(1))
+        {
+
+            Vector3 mousePos = Input.mousePosition;
+            mousePos = Camera.main.ScreenToWorldPoint(mousePos);
+
+            //this.gameObject
+            UnityEngine.Debug.Log("Right mouse click is pressed and this object: \n" + this.gameObject + " is selected.");
+
+            var thisTag = this.GameObject.tag;
+            if (thisTag == "")
+            { }
+            else if (thisTag == "")
+            { }
+            else if (thisTag == "")
+            { }
+
+        }
+    }
+
+    private void OnMouseUp()
+    {
+        isBeingHeld = false;
+    }
+}
+    /**
 
 
 
@@ -66,4 +119,4 @@ public class MoveObjects : MonoBehaviour
     {
         transform.position = GetMouseAsWorldPoint() + mOffset;
     }
-}
+}**/
