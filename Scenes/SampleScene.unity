@@ -2438,6 +2438,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MassCube
       objectReference: {fileID: 0}
+    - target: {fileID: 2101631179709749680, guid: 4ea0ca7038d3d2b4aaedc4e0d47c8ea5,
+        type: 3}
+      propertyPath: m_TagString
+      value: Mass Cube
+      objectReference: {fileID: 0}
     - target: {fileID: 2101631179709749691, guid: 4ea0ca7038d3d2b4aaedc4e0d47c8ea5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2985,6 +2990,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: External Force
+      objectReference: {fileID: 0}
+    - target: {fileID: 2494989319905377543, guid: 000d4ec5271e0624a96c4a16d8bd1490,
+        type: 3}
+      propertyPath: m_TagString
+      value: External Forces
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 000d4ec5271e0624a96c4a16d8bd1490, type: 3}
@@ -4081,6 +4091,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1658375795191176653, guid: 531607ff2f81db94898f82edf23feb2a,
+        type: 3}
+      propertyPath: m_TagString
+      value: Spring
       objectReference: {fileID: 0}
     - target: {fileID: 1658375795191176655, guid: 531607ff2f81db94898f82edf23feb2a,
         type: 3}

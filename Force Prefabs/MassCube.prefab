@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 4711824928038439984}
   m_Layer: 0
   m_Name: MassCube
-  m_TagString: Mass Cubes
+  m_TagString: Mass Cube
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

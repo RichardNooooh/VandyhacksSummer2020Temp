@@ -1,13 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MoveObjects : MonoBehaviour
 {
-    //2D version (from https://www.youtube.com/watch?v=eUWmiV4jRgU)
+    //2D version (adapted from https://www.youtube.com/watch?v=eUWmiV4jRgU)
     private float startPosX;
     private float startPosY;
     private bool isBeingHeld = false;
+
+    private static bool isSelecting = false;
+    private static GameObject selectedGameObject = null;
+
+    public static GameObject selectionMenuObject;
+
+    public static bool[] indicesOfInactiveMenuObjects;
+
+    void Start() 
+    {
+        selectionMenuObject = GameObject.FindWithTag("UI-SelectionMenu");
+        indicesOfInactiveMenuObjects = new bool[4];
+    }
 
     void Update()
     {
@@ -25,16 +40,26 @@ public class MoveObjects : MonoBehaviour
         //Left mouse click selection
         if (Input.GetMouseButtonDown(0))
         {
-            UnityEngine.Debug.Log("Left mouse click is pressed");
-            Vector3 mousePos;
-            mousePos = Input.mousePosition;
-            mousePos = Camera.main.ScreenToWorldPoint(mousePos);
+            if (!isSelecting)
+            {
+                UnityEngine.Debug.Log("Left mouse click is pressed");
+                Vector3 mousePos;
+                mousePos = Input.mousePosition;
+                mousePos = Camera.main.ScreenToWorldPoint(mousePos);
 
-            startPosX = mousePos.x - this.transform.localPosition.x;
-            startPosY = mousePos.y - this.transform.localPosition.y;
+                startPosX = mousePos.x - this.transform.localPosition.x;
+                startPosY = mousePos.y - this.transform.localPosition.y;
 
-            isBeingHeld = true;
+                isBeingHeld = true;
+            }
+            else //choosing game object TODO
+            { }
         }
+    }
+
+    private void OnMouseUp()
+    {
+        isBeingHeld = false;
     }
 
     private void OnMouseOver() 
@@ -49,74 +74,56 @@ public class MoveObjects : MonoBehaviour
             //this.gameObject
             UnityEngine.Debug.Log("Right mouse click is pressed and this object: \n" + this.gameObject + " is selected.");
 
-            var thisTag = this.GameObject.tag;
-            if (thisTag == "")
-            { }
-            else if (thisTag == "")
-            { }
-            else if (thisTag == "")
-            { }
+            var thisGameObject = this.gameObject;
+            if (thisGameObject.CompareTag("External Forces"))
+                ConfigureExternalForcesMenu();
+            else if (thisGameObject.CompareTag("Mass Cube"))
+                ConfigureMassCubeMenu();
+            else if (thisGameObject.CompareTag("Spring"))
+                ConfigureSpringMenu();
 
         }
     }
 
-    private void OnMouseUp()
+    //only 1 value, and the 2 connectors
+    private void ConfigureExternalForcesMenu() 
     {
-        isBeingHeld = false;
+        selectionMenuObject.SetActive(true);
+        Transform selectionMenuTransform = selectionMenuObject.transform;
+        
+        //Set InputField1 inactive, keep track of it for reactivation
+        selectionMenuTransform.GetChild(2).gameObject.SetActive(false); //this is InputField1
+        indicesOfInactiveMenuObjects[2] = true;
+
+        //Set placeholder text of input
+        GameObject inputField0bject = selectionMenuTransform.GetChild(1);
+        GameObject placeholderObject = inputFieldObject.GetChild(0);
+        placeholderObject.GetComponent<Text>().text = "Force (N)";
+
+    }
+
+    private void ConfigureMassCubeMenu() 
+    {
+        selectionMenuObject.SetActive(true);
+        Transform selectionMenuTransform = selectionMenuObject.transform;
+
+        //Set InputField1 and ConnectorButtons inactive, keep track of it for reactivation
+        selectionMenuTransform.GetChild(2).gameObject.SetActive(false); //InputField1
+        selectionMenuTransform.GetChild(3).gameObject.SetActive(false); //ConnectorButton0
+        selectionMenuTransform.GetChild(4).gameObject.SetActive(false); //ConnectorButton1
+        indicesOfInactiveMenuObjects[2] = true;
+        indicesOfInactiveMenuObjects[3] = true;
+        indicesOfInactiveMenuObjects[4] = true;
+
+        //Set placeholder text of input
+        GameObject inputField0bject = selectionMenuTransform.GetChild(1);
+        GameObject placeholderObject = inputFieldObject.GetChild(0);
+        placeholderObject.GetComponent<Text>().text = "Mass (kg)";
+    }
+
+
+    private void ConfigureSpringMenu() 
+    {
+        selectionMenuObject.SetActive(true);
     }
 }
-    /**
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //3d version
-    private Vector3 mOffset;
-    private float mZCoord;
-
-    void update() 
-    {
-        if (Input.GetMouseButtonDown(1))
-        {
-            
-        }
-
-    }
-
-
-    void OnMouseDown()
-    {
-        mZCoord = Camera.main.WorldToScreenPoint(gameObject.transform.position).z;
-        
-        // Store offset = gameobject world pos - mouse world pos
-        mOffset = gameObject.transform.position - GetMouseAsWorldPoint();
-    }
-
-    private Vector3 GetMouseAsWorldPoint()
-    {
-        // Pixel coordinates of mouse (x,y)
-        Vector3 mousePoint = Input.mousePosition;
-
-        // z coordinate of game object on screen
-        mousePoint.z = mZCoord;
-
-        // Convert it to world points
-        return Camera.main.ScreenToWorldPoint(mousePoint);
-    }
-
-    void OnMouseDrag()
-    {
-        transform.position = GetMouseAsWorldPoint() + mOffset;
-    }
-}**/
