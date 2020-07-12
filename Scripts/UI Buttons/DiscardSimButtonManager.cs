@@ -1,18 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class DiscardSimButtonManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public GameObject root;
 
-    // Update is called once per frame
-    void Update()
+    public void OnClick() 
     {
-        
+        UnityEngine.Debug.Log("Removing all items in simulation and pausing sim.");
+        foreach (Transform child in root.transform) 
+            Destroy(child.gameObject);
+
+        Time.timeScale = 0;
     }
 }

@@ -48,13 +48,14 @@ public class SpringForce : AbstractSimForce
         float magnitudeProduct = (position2 - position1).magnitude;
 
 
-        float zRotation = Mathf.Acos(dotProduct / magnitudeProduct) * 180 / Mathf.PI;
-        this.transform.rotation = Quaternion.Euler(Vector3.forward * zRotation);
+        float zRotation = 180 - Mathf.Acos(dotProduct / magnitudeProduct) * 180 / Mathf.PI;
+        if (position2.y > position1.y)
+            zRotation = -zRotation;
 
-        //set the proper scale so that the edges meet with o1 and o2
+        this.transform.rotation = Quaternion.Euler(0, 0, zRotation);
 
         float scaleRatio = (position1 - position2).magnitude / 2;
-        UnityEngine.Debug.Log("Scale Ratio: " + scaleRatio + " (Position1 - Position2) Magnitude: " + (position1 - position2).magnitude);
+
         this.transform.localScale = new Vector3(scaleRatio , 1, 1);
     }
 }

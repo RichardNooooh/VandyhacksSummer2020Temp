@@ -41,7 +41,12 @@ public class ExternalForce : AbstractSimForce
 
 
         float zRotation = Mathf.Acos(dotProduct / magnitudeProduct) * 180 / Mathf.PI;
-        this.transform.rotation = Quaternion.Euler(Vector3.forward * zRotation);
+        if (position2.y < position1.y)
+            zRotation = -zRotation;
+
+        UnityEngine.Debug.Log("current rotated angle: " + zRotation);
+
+        this.transform.rotation = Quaternion.Euler(0, 0, zRotation);
 
         //set the proper scale so that the edges meet with o1 and o2
         if (!hasSetLength)
