@@ -102,6 +102,7 @@ public class MoveObjects : MonoBehaviour
 
     }
 
+    //only 1 value
     private void ConfigureMassCubeMenu() 
     {
         selectionMenuObject.SetActive(true);
@@ -121,9 +122,19 @@ public class MoveObjects : MonoBehaviour
         placeholderObject.GetComponent<Text>().text = "Mass (kg)";
     }
 
-
+    //all 4 options
     private void ConfigureSpringMenu() 
     {
         selectionMenuObject.SetActive(true);
+        Transform selectionMenuTransform = selectionMenuObject.transform;
+
+        //Set placeholder text of inputs
+        GameObject inputFieldObject0 = selectionMenuTransform.GetChild(1);
+        GameObject placeholderObject0 = inputFieldObject0.GetChild(0);
+        placeholderObject0.GetComponent<Text>().text = "Length (m)";
+
+        GameObject inputFieldObject1 = selectionMenuTransform.GetChild(1);
+        GameObject placeholderObject1 = inputFieldObject1.GetChild(0);
+        placeholderObject1.GetComponent<Text>().text = "Constant (N/m)";
     }
 }
