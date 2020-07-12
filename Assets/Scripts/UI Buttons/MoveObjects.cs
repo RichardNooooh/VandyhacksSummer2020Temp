@@ -8,9 +8,9 @@ using UnityEngine.UI;
 public class MoveObjects : MonoBehaviour
 {
     //2D version (adapted from https://www.youtube.com/watch?v=eUWmiV4jRgU)
-    private float startPosX;
-    private float startPosY;
-    private bool isBeingHeld = false;
+    public float startPosX;
+    public float startPosY;
+    public bool isBeingHeld = false;
 
     private static bool isSelecting = false;
     private static GameObject selectedGameObject = null; // for connecting
@@ -58,55 +58,51 @@ public class MoveObjects : MonoBehaviour
     }
 
     //Used for moving objects and selecting connections
-    private void OnMouseDown()
+    public void OnMouseDown()
     {
-        //Left mouse click selection
-        if (Input.GetMouseButtonDown(0))
+        UnityEngine.Debug.Log("isSelecting: " + isSelecting);
+        if (!isSelecting)
         {
-            UnityEngine.Debug.Log("isSelecting: " + isSelecting);
-            if (!isSelecting)
-            {
 
-                UnityEngine.Debug.Log("Left mouse click is pressed");
-                Vector3 mousePos;
-                mousePos = Input.mousePosition;
-                mousePos = Camera.main.ScreenToWorldPoint(mousePos);
+            UnityEngine.Debug.Log("Left mouse click is pressed");
+            Vector3 mousePos;
+            mousePos = Input.mousePosition;
+            mousePos = Camera.main.ScreenToWorldPoint(mousePos);
 
-                startPosX = mousePos.x - this.transform.localPosition.x;
-                startPosY = mousePos.y - this.transform.localPosition.y;
+            startPosX = mousePos.x - this.transform.localPosition.x;
+            startPosY = mousePos.y - this.transform.localPosition.y;
 
-                isBeingHeld = true;
-            }
-            else
-            {
-                if (currentConnectionSelection == ToFromSelection.TO)
-                {
-                    selectedGameObject.GetComponent<AbstractSimForce>().o1 = this.gameObject;
-                    UnityEngine.Debug.Log("Connect this object: " + selectedGameObject + " o1 reference to " + this.gameObject);
-                }
-                else if (currentConnectionSelection == ToFromSelection.FROM)
-                {
-                    selectedGameObject.GetComponent<AbstractSimForce>().o2 = this.gameObject;
-                    UnityEngine.Debug.Log("Connect this object: " + selectedGameObject + " o2 reference to " + this.gameObject);
-                }
-
-            }
-            //reset menu and variables TODO
-            isSelecting = false;
-            selectedGameObject = null;
-            currentConnectionSelection = ToFromSelection.NOT_SELECTED;
-
-            selectionMenuObject.SetActive(false);
+            isBeingHeld = true;
         }
+        else
+        {
+            if (currentConnectionSelection == ToFromSelection.TO)
+            {
+                selectedGameObject.GetComponent<AbstractSimForce>().o1 = this.gameObject;
+                UnityEngine.Debug.Log("Connect this object: " + selectedGameObject + " o1 reference to " + this.gameObject);
+            }
+            else if (currentConnectionSelection == ToFromSelection.FROM)
+            {
+                selectedGameObject.GetComponent<AbstractSimForce>().o2 = this.gameObject;
+                UnityEngine.Debug.Log("Connect this object: " + selectedGameObject + " o2 reference to " + this.gameObject);
+            }
+
+        }
+        //reset menu and variables TODO
+        isSelecting = false;
+        selectedGameObject = null;
+        currentConnectionSelection = ToFromSelection.NOT_SELECTED;
+
+        selectionMenuObject.SetActive(false);
     }
 
-    private void OnMouseUp()
+    public void OnMouseUp()
     {
         isBeingHeld = false;
     }
 
     //Used right clicking configuration selection menu
-    private void OnMouseOver()
+    public void OnMouseOver()
     {
         //Right mouse click selection
         if (Input.GetMouseButtonDown(1))
@@ -120,7 +116,7 @@ public class MoveObjects : MonoBehaviour
             var thisGameObject = this.gameObject;
             selectedGameObject = this.gameObject;
 
-            if (!thisGameObject.CompareTag("Mass Cube"))
+            if (!thisGameObject.CompareTag("Mass Cube") && !thisGameObject.CompareTag("Point"))
             {
                 selectionMenuObject.SetActive(true);
                 selectionMenuObject.transform.position = mousePos;

@@ -9,12 +9,15 @@ public class SpringForce : AbstractSimForce
     public float springConstant = 10.0f; //N/m
     public float equilibriumLength = 5.0f;
 
+    public float currentForce;
+
     /**
      * Updates the force every in-engine time interval
      */
     public void FixedUpdate()
     {
         Vector3 force = getForce();
+        currentForce = force.magnitude;
         if (rb1 != null)
             rb1.AddForce(force * Time.fixedDeltaTime);
         if (rb2 != null)

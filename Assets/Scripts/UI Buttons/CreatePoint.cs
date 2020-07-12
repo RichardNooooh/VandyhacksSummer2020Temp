@@ -13,5 +13,7 @@ public class CreatePoint : MonoBehaviour
     {
         GameObject newCreatedPointObject = Instantiate(refToPointObject, creationPosition, Quaternion.identity);
         newCreatedPointObject.transform.parent = refToSimRoot.transform;
+
+        UnityEngine.Debug.Log("Created point object");
     }
 }
